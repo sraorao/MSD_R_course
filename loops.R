@@ -1,4 +1,7 @@
-# testing the truth value of an expression ----
+###R for biologists
+##Irina & Rao, 19/01/2021
+
+###Testing the truth value of an expression###
 1 < 2
 34 > 35
 1 <= (2/2)
@@ -7,14 +10,44 @@
 "TP53" == toupper("tp53")
 "A" %in% LETTERS
 
+###CONDITIONALS###
+##IF conditional
+x <- 4
+if(x > 0) {
+  print("Positive number")
+}
+x <- -4
+
 goi_name = "PTEN"
 if(goi_name %in% gene_names) {
   print("The gene of interest is in the gene set")
 }
 
+##IF ELSE
+x <- 4
+if(x > 0) {
+  print("Positive number")
+} else {
+  print("Not positive number")
+}
+x <- -4
 
+##chained conditionals
+x <- 0
+if (x < 0) {
+  print("Negative number")
+} else if (x > 0) {
+  print("Positive number")
+} else {
+  print("Zero")
+}
 
-# the while loop performs an action as long as a condition is true ----
+#Q: write a conditional for printing "The gene of interest is in the gene set"
+#or "The gene of interest is not in the gene set"
+#use different genes - RB1, AGO2
+
+###LOOPS###
+##WHILE loop performs an action as long as a condition is true
 am_i_happy_today = TRUE
 while(am_i_happy_today) {  # an infinite loop
   print("happy")
@@ -38,7 +71,7 @@ while(index < 27) {
   index = index + 1
 }
 
-# the for loop iterates over a vector or a list ----
+##FOR loop iterates over a vector or a list
 # perform an action over every item
 gene_names = c("TP53", "PTEN", "RB1", "MYC")
 for(each_item in gene_names) {
@@ -46,3 +79,4 @@ for(each_item in gene_names) {
   print(each_item_lcase)
 }
 
+#Q: write a loop for printing the name and the counter for each gene in the vector
