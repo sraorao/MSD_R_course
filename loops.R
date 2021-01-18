@@ -48,6 +48,12 @@ if (x < 0) {
 
 ###LOOPS###
 ##WHILE loop performs an action as long as a condition is true
+i <- 1
+while (i < 6) {
+print(i)
+i = i+1
+}
+
 am_i_happy_today = TRUE
 while(am_i_happy_today) {  # an infinite loop
   print("happy")
