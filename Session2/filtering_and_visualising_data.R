@@ -36,29 +36,27 @@ dim(morphology_data)
 head(morphology_data)
 
 #### MERGE migration and morphology data ####
-complete_migmorph = merge(migration_data, morphology_data, 
+migmorph = merge(migration_data, morphology_data, 
                           by = c("reagent_id", "gene_symbol"))
-colnames(complete_migmorph)
-head(complete_migmorph)
-str(complete_migmorph)
+colnames(migmorph)
+head(migmorph)
+str(migmorph)
 
-complete_migmorph$migration = as.numeric(complete_migmorph$migration)
-complete_migmorph$elongatedness = as.numeric(complete_migmorph$elongatedness)
+migmorph$migration = as.numeric(migmorph$migration)
+migmorph$elongatedness = as.numeric(migmorph$elongatedness)
 #### Explore data DISTRIBUTION ####
-hist(complete_migmorph$migration) 
-hist(complete_migmorph$migration, breaks = 10)
+hist(migmorph$migration) 
+hist(migmorph$migration, breaks = 10)
 
-plot(density(complete_migmorph$migration))
+plot(density(migmorph$migration))
 
 # Q: Plot data distribution graphs for elongatedness
 
-hist(complete_migmorph$elongatedness)
-plot(density(complete_migmorph$elongatedness))
 
 #### Calculate basic STATS for this dataset: mean, median, standard deviation ####
 
-mean(complete_migmorph$migration)
-median(complete_migmorph$migration)
+mean(migmorph$migration)
+median(migmorph$migration)
 
 # Q: Calculate the standard deviation for migration
 # # hint: Find out which function can be used to calculate standard deviation
@@ -82,11 +80,11 @@ ozone_without_missing = na.omit(airquality$Ozone)
 
 #### Explore the RELATIONSHIP between migration and elongatedness ####
 
-plot(complete_migmorph$migration, complete_migmorph$elongatedness)
+plot(migmorph$migration, migmorph$elongatedness)
 
 # Calculate Pearson's correlation coefficient
 
-cor.test(complete_migmorph$migration, complete_migmorph$elongatedness)
+cor.test(migmorph$migration, migmorph$elongatedness)
 
 # Q: Calculate Spearman correlation coefficient
 # # hint: Look up the help pages for cor.test() function
@@ -97,12 +95,32 @@ cor.test(complete_migmorph$migration, complete_migmorph$elongatedness)
 # Subsetting by logical vectors comes in handy here
 # Knockdown of which genes results in migration > 1?
 
-which_rows_mig1 = complete_migmorph$migration > 1
-complete_migmorph[which_rows_mig1, ]
+which_rows_mig1 = migmorph$migration > 1
+migmorph[which_rows_mig1, ]
 
-which_rows_elongatedness1.5 = complete_migmorph$elongatedness < 1.5
-complete_migmorph[which_rows_elongatedness1.5, ]
+# Knockdown of which genes results in elongatedness < 1.5?
+
+which_rows_elongatedness1.5 = migmorph$elongatedness < 1.5
+migmorph[which_rows_elongatedness1.5, ]
+
+#### DETOUR: logical operations - AND OR ####
+
+TRUE & TRUE     # AND
+TRUE & FALSE
+TRUE | TRUE     # OR
+TRUE | FALSE
+
+x = 5
+x > 4 & x < 6
+x > 4 | x > 6
+
+# Filtering with more than one criterion
+migmorph[which_rows_mig1 | which_rows_elongatedness1.5, ]
 
 #### Problem set ####
 # Q: Knockdown of which gene results in the highest migration?
 # # hint: this can be accomplished with the max() function
+
+# Q: Make a new data.frame that has only rows with 0.9 > migration > 0.4 AND elongatedness > 1.4
+# What is the correlation between migration and elongatedness in this new dataset?
+# Draw an XY plot showing the relationship between these two variables in this new dataset
