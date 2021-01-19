@@ -91,12 +91,10 @@ for(each_item in gene_names) {
   print(each_item_lcase)
 }
 
-#Q: write a loop for printing the name and the counter for each gene in the vector
+#Q: write a loop for printing the name and the counter for each gene in the vector gene_names
 
 
 ####Problem set####
-
-#Q: Write a loop for printing the name and the counter for each gene in the vector gene_names
 
 #Q: In the vector gene_names, print the genes whose names start with P, using a loop to iterate through each gene name
     # hint: Use the startsWith() function
