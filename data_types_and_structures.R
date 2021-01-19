@@ -1,10 +1,12 @@
+###R for biologists
+##Irina & Rao, 19/01/2021
 
-
-# constants - unchanging elements in R----
+#### constants - unchanging elements in R####
 2
-"A"
+pi
 
-# variables -place-holders to which data can be assigned and changed----
+
+#### variables -place-holders to which data can be assigned and changed####
 x
 y
 z
@@ -24,7 +26,9 @@ z = x
 x = 5
 
 # What is the value of z now?
-
+z
+# What is the value of x now?
+x
 # Variable names
 gene_name_p53 = "TP53"
 gene_id_p53 = 7157
@@ -32,18 +36,29 @@ is_oncogene_p53 = FALSE
 gene_7157 = "TP53"
 # 7157_gene = 4 # this won't work because a variable name can't start with a number
 
-# Types of data----
+# Q: assign the values 1000 and 50 to the variables num_students and num_teachers, 
+# and now calculate the total number of people in the class, assign this to num_people
+# # hint use + to add two values
+
+
+#### Types of data####
 num_participants = 25       # numeric
 my_uni = "Oxford"           # character
 am_i_happy_today = TRUE     # logical
+num_instructors = "2"         # type?
 
-# Conversion of data types TODO ----
 
-# What is the data type for gene_id below?
-gene_id = "7157"
-class(gene_id)
 
-# Data Structures----
+#### Conversion of data types####
+num_participants +  num_instructors
+num_participants + as.numeric(num_instructors)
+
+# Q: What happens when you try to convert "two" to numeric type?
+
+# Q: What happens when you try to convert "Truth" to logical type?
+
+
+#### Data Structures####
 # Atomic vectors - most basic data type, can be of length => 0
 # length 0
 num_participants = numeric()
@@ -98,9 +113,20 @@ all_genes_df[, 2]
 all_genes$name
 
 # Q: Subset all_genes_df for only the 2nd and 3rd rows
-all_genes[ , ]
+# hint: fill in the blanks as needed: all_genes[ , ]
 
+
+# How to get information about objects in R
 print(gene_names)
 length(gene_names)
 class(gene_names)
 str(gene_names)
+
+# Q: Examine the ToothGrowth dataset that is preloaded in your R session
+# hint: Use ? to look up a description of the dataset in the help pages
+# hint: try print(), length(), class(), str() on ToothGrowth
+# hint: Now try head() and tail()
+
+# Q: Subset ToothGrowth to show only the rows where the dose is higher than or equal to 1.0
+# hint: Try ToothGrowth$dose >= 1.0
+# hint: Remember that you can pass a vector of TRUE/FALSE within the [] to subset: ToothGrowth[true_false_vector, ]
