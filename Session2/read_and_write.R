@@ -12,10 +12,16 @@ setwd()
 ##Dataset:
 #The Strength of Phenotypic Selection in Natural Populations, Kingsolver et al. (2001)
 populations<-read.delim("data/selection.txt")
+View(populations)
+dim(populations)
+str(populations)
 #read excel
 install.packages("readxl")
 library(readxl)
 populations2<-read_excel("data/selection.xls")
+str(populations2)
+#Notice the difference! -> use strings as factors = F
+
 #read data from internet
 my_data <- read.delim("http://www.sthda.com/upload/boxplot_format.txt")
 
@@ -30,3 +36,4 @@ install.packages("xlsx")
 library(xlsx)
 
 #Q: write populations as excel file, keep only the first 100 rows
+
