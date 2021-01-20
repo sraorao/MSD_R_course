@@ -62,7 +62,7 @@ median(migmorph$migration)
 # # hint: Find out which function can be used to calculate standard deviation
 # # by typing ??"standard deviation" in the console
 
-
+summary(migmorph)
 
 #### DETOUR: How to handle NAs ####
 ?airquality
