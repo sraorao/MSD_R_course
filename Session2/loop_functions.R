@@ -37,3 +37,10 @@ for(each_gene in all_genes) {
   joined_name = paste(each_gene, collapse = "-")
   print(joined_name)
 }
+
+# another example - we have a list of vectors a, b, c; we want the mean for each of them
+my_list = list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
+lapply(my_list, mean)
+
+# Q: Write the equivalent in a for loop
+
