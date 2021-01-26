@@ -25,7 +25,7 @@ migration_data = migration_data[c(-1, -2), c(8, 10, 13)]
 colnames(migration_data) = c("reagent_id", "gene_symbol", "migration")
 dim(migration_data)
 head(migration_data)
-migration_data = edit(migration_data)
+
 # Load morphology data
 # We are only interested in columns 8, 9, 10, 19
 # We are also NOT interested in rows 1, 2
