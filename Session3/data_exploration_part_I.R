@@ -83,7 +83,7 @@ owid_covid %>%
 
 plot(x = owid_covid_hdi_class$date, y = owid_covid_hdi_class$total_deaths_per_million, col = owid_covid_hdi_class$hdi_class)
 
-# PROBLEM SET ####
+# PROBLEM SET for Part I ####
 # Q: Filter the owid_covid dataset for only 4 countries: UK, US, Germany, Belgium
 
 # Q: Plot test positivity rate in the UK across time, as a line graph
