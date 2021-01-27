@@ -25,10 +25,15 @@ owid_covid$location
 unique(owid_covid$location)
 
 # DATA TYPES - do all the columns look okay, does anything need to be changed?
+# Dates
 ?Dates
 owid_covid$date = as.Date(owid_covid$date)
 new_year = "2021-01-01"
-
+class(new_year)
+new_year = as.Date(new_year)
+class(new_year)
+new_year
+as.numeric(new_year)
 # MISSING DATA - are there any missing data? Do you want to remove/replace them? ####
 # No for this dataset, because it's a very clean one already
 # Can NAs be substituted with zero, for example in the total_vaccinations column?
@@ -37,6 +42,11 @@ new_year = "2021-01-01"
 
 owid_covid %>%
   arrange(date) -> owid_covid_sorted_by_date
+
+# sort by multiple columns
+
+owid_covid %>%
+  arrange(date, location) -> owid_covid_sorted_by_date_location
 
 # SUBSET DATA - which columns should we keep? ####
 
@@ -74,6 +84,12 @@ owid_covid %>%
 plot(x = owid_covid_hdi_class$date, y = owid_covid_hdi_class$total_deaths_per_million, col = owid_covid_hdi_class$hdi_class)
 
 # PROBLEM SET ####
+# Q: Filter the owid_covid dataset for only 4 countries: UK, US, Germany, Belgium
 
+# Q: Plot test positivity rate in the UK across time, as a line graph
 
+# Q: Create a new column in the dataset where the value should be "low" or "high" 
+# depending on whether the population is lower or higher than the median population respectively
 
+# Q: For data from Jan 1st 2021, plot the total cases (x) vs total deaths (y)
+# How can this graph be improved?
