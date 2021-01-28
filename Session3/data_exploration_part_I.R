@@ -1,4 +1,6 @@
-install.packages("tidyverse")
+# install.packages("tidyverse") # just need to do this once
+# install.packages("dplyr") # just need to do this once; also no need to do this 
+# if you ran the above line already (i.e. tidyverse is already installed)
 library(tidyverse)
 
 # DATASET ####
@@ -10,14 +12,14 @@ library(tidyverse)
 #                      header = TRUE, stringsAsFactors = FALSE)
 
 # OR load the csv file that is in your Session3/data folder
-owid_covid = read.csv("Session3/data/owid-covid-data.csv", header = TRUE, 
+owid_covid = read.csv("Session3/data/owid-covid-data.csv", header = TRUE,
                       stringsAsFactors = FALSE)
 
 
 
 # LOOK at the data ####
 dim(owid_covid)
-names(owid_covid)
+colnames(owid_covid)
 View(owid_covid)
 str(owid_covid)
 
@@ -50,16 +52,17 @@ owid_covid %>%
 
 # SUBSET DATA - which columns should we keep? ####
 
-names(owid_covid)
+colnames(owid_covid)
 
 owid_covid %>%
-  select() -> owid_covid_selected
+  select(total_cases, total_deaths) -> owid_covid_selected
 head(owid_covid_selected)
 # FILTER DATA - should we filter data? What criteria should we use? ####
 # The answer will depend on what you want to get out of the data
 
 owid_covid %>%
   filter(location == "United Kingdom") -> owid_covid_uk
+dim(owid_covid_uk)
 
 owid_covid %>%
   filter(location == "Belgium") -> owid_covid_belgium
@@ -69,6 +72,7 @@ plot(x = owid_covid_uk$date, y = owid_covid_uk$total_cases_per_million, col = "r
 plot(x = owid_covid_uk$date, y = owid_covid_uk$total_cases_per_million, type = "l")
 
 # Q: Plot total deaths in the US across time
+plot(x = owid_covid_uk$date, y = owid_covid_uk$total_deaths, type = "l")
 
 
 # CREATE new columns based on existing data ####
@@ -85,11 +89,39 @@ plot(x = owid_covid_hdi_class$date, y = owid_covid_hdi_class$total_deaths_per_mi
 
 # PROBLEM SET for Part I ####
 # Q: Filter the owid_covid dataset for only 4 countries: UK, US, Germany, Belgium
+four_countries = c("United Kingdom", "Belgium", "Germany", "United States")
+owid_covid %>%
+  filter(location %in% four_countries) %>% View()
 
 # Q: Plot test positivity rate in the UK across time, as a line graph
+plot(owid_covid_uk$date, owid_covid_uk$positive_rate, type = "l")
 
 # Q: Create a new column in the dataset where the value should be "low" or "high" 
 # depending on whether the population is lower or higher than the median population respectively
 
+# We first need to calculate the median population; this can be done using base R or
+# using dplyr, either method is fine. We store this value in the variable median_population
+
+median_population = median(owid_covid$population, na.rm = TRUE) # Base R
+
+# or
+
+owid_covid %>%                                                  # dplyr
+  summarise(median_pop = median(owid_covid$population, na.rm = TRUE)) %>%
+  pull(median_pop) -> median_population
+
+# Now we need to create a new column indicating whether the population for each
+# country is lower or higher than the median population, using mutate() and if_else()
+
+owid_covid %>%
+  mutate(pop_low_or_high = if_else(population < median_population, "low", "high")) -> owid_covid_pop_class
+  
 # Q: For data from Jan 1st 2021, plot the total cases (x) vs total deaths (y)
 # How can this graph be improved?
+new_year
+owid_covid %>%
+  filter(date == new_year) -> owid_covid_newyear
+
+plot(x = owid_covid_newyear$total_cases, y = owid_covid_newyear$total_deaths)
+plot(x = log10(owid_covid_newyear$total_cases), 
+     y = log10(owid_covid_newyear$total_deaths), xlim = c(0, 4))
