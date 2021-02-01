@@ -79,37 +79,30 @@ owid_covid %>%
 
 plot(x = log10(owid_covid_newyear$total_cases), y = log10(owid_covid_newyear$total_deaths))
 
-# 1
+# 1 - make canvas
 ggplot(date = owid_covid_newyear)
 
-# 2
+# 2 - add mapping
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths))
 
-# 3
+# 3 - add geom(s)
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point()
 
-# 4
+# 4 - change scale to log
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
   scale_y_log10()
 
-# 5
+# 5 - add trendline
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(method = "lm")
 
-# 6
-ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
-  geom_point() +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(method = "lm")
-
-# 7
+# 6 - change theme
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
@@ -117,7 +110,7 @@ ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_smooth(method = "lm") +
   theme_bw()
 
-# 8
+# 7 - add main title
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
@@ -126,7 +119,7 @@ ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   theme_bw() +
   ggtitle("OWID Covid dataset: Total cases vs. total deaths on Jan 01, 2021")
 
-# 9
+# 8 - change x and y labels
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
@@ -136,7 +129,7 @@ ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   ggtitle("OWID Covid dataset: Total cases vs. total deaths on Jan 01, 2021") +
   labs(x = "Total cases", y = "Total deaths")
 
-# 10
+# 9 - remove panel grid
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point() +
   scale_x_log10() +
@@ -147,7 +140,7 @@ ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   labs(x = "Total cases", y = "Total deaths") +
   theme(panel.grid = element_blank())
 
-# 11
+# 10 - add location mapping to size of point
 ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   geom_point(aes(size = population)) +
   scale_x_log10() +
@@ -158,6 +151,29 @@ ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
   labs(x = "Total cases", y = "Total deaths") +
   theme(panel.grid = element_blank())
 
+# 11 - store the plot in a variable
+plot_total_cases_vs_deaths = ggplot(owid_covid_newyear, aes(x = total_cases, y = total_deaths)) +
+  geom_point(aes(size = population)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  ggtitle("OWID Covid dataset: Total cases vs. total deaths on Jan 01, 2021") +
+  labs(x = "Total cases", y = "Total deaths") +
+  theme(panel.grid = element_blank())
+
+# 12 - save the plot to file
+ggsave("session4/results/plot_total_cases_vs_deaths.pdf", plot = plot_total_cases_vs_deaths)
+ggsave("session4/results/plot_total_cases_vs_deaths.png", plot = plot_total_cases_vs_deaths)
+ggsave("session4/results/plot_total_cases_vs_deaths.svg", plot = plot_total_cases_vs_deaths)
+
 # Q: Plot total_cases_per_million on x axis and total_deaths_per_million on y axis
 # Change the colour of the plots to green
+
+# Q: Recreate the plot from session4/results/plot_bubble_total_cases_vs_deaths.pdf from
+# the owid_covid_newyear dataset
+# use shape = 21 for geom_point()
+# hint: use geom_label_repel() from ggrepel package
+# hint: use scale_size(range = c(2, 40))
+# hint: save the plot as a pdf with width and height = 10
 
