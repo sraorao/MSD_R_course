@@ -1,7 +1,7 @@
 library(tidyverse)
-# library(dplyr)
-# library(ggplot2)
-# LOAD Our World In Data Covid dataset
+# library(dplyr) # if tidyverse not loaded
+# library(ggplot2) # if tidyverse not loaded
+# LOAD Our World In Data Covid dataset ####
 owid_covid = read.csv("Session3/data/owid-covid-data.csv", header = TRUE,
                       stringsAsFactors = FALSE)
 owid_covid$date = as.Date(owid_covid$date)
@@ -167,6 +167,7 @@ ggsave("session4/results/plot_total_cases_vs_deaths.pdf", plot = plot_total_case
 ggsave("session4/results/plot_total_cases_vs_deaths.png", plot = plot_total_cases_vs_deaths)
 ggsave("session4/results/plot_total_cases_vs_deaths.svg", plot = plot_total_cases_vs_deaths)
 
+# PROBLEM SET ####
 # Q: Plot total_cases_per_million on x axis and total_deaths_per_million on y axis
 # Change the colour of the plots to green
 
@@ -177,3 +178,7 @@ ggsave("session4/results/plot_total_cases_vs_deaths.svg", plot = plot_total_case
 # hint: use scale_size(range = c(2, 40))
 # hint: save the plot as a pdf with width and height = 10
 
+# Q: Using the owid_covid_4countries dataset, draw a faceted plot (one panel for
+# each country), where each panel shows the date on the x axis vs. new_deaths_per_million 
+# on the y axis in black and also icu_patients_per_million in red on the y axis
+# Please see session4/results/plot_faceted_4countries_date_vs_deaths_and_icu.pdf for the expected output
