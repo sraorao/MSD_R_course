@@ -32,7 +32,7 @@ display.brewer.all()
 condition_colours = brewer.pal(2, "Accent")[conditions]
 bluegreen_colours = colorRampPalette(brewer.pal(9, "GnBu"))(100)
 
-# Draw heatmap ####
+# Draw HEATMAP ####
 # install.packages("gplots)
 library(gplots) # do not confuse with ggplot2
 
@@ -70,3 +70,13 @@ heatmap.2(norm_counts_selected,
           Rowv = FALSE, 
           dendrogram = "column", 
           ColSideColors = condition_colours)
+
+# let's try plotting the counts for just one miR
+norm_counts %>%
+  filter(mir_name == "hsa-mir-567") %>%                       # filter for miR of interest
+  gather(key = "sample", value = "count", -mir_name) %>%      # convert to long format
+  mutate(condition = as.factor(substr(sample, 1, 1))) %>%     # add a column that defines the condition
+  ggplot(aes(x = condition, y = count)) +                     # parent ggplot function defines x and y axes
+    geom_boxplot(outlier.shape = NA) +                        # boxplot
+    geom_dotplot(binaxis = "y", stackdir = "center") +        # dots overlaid on top of box plot
+    theme_bw()                                                # set theme to B & W
