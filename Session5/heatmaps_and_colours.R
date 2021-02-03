@@ -10,7 +10,7 @@ filenames = list.files(path = "Session5/data/", pattern = "counts.txt", full.nam
 # so that we get a list of data.frames in count_data_list
 count_data_list = lapply(filenames, function(x) {
                     sample_name = substr(x, 15, 16)
-                    each_sample_count = read.table(x, header = TRUE, sep = "\t",
+                    each_sample_count = read.table(x, header = TRUE, sep = "\t", stringsAsFactors = FALSE,
                                                    col.names = c("mir_name", sample_name))
                     return(each_sample_count)
                   })
@@ -24,6 +24,8 @@ View(norm_counts)
 
 conditions = as.factor(substr(colnames(norm_counts)[2:7], 1, 1))
 
+# load results table
+results = read.csv("Session5/data/differentially_expressed_mirs_significant.csv", stringsAsFactors = FALSE)
 # COLOURS ####
 # Print available palettes
 display.brewer.all()
@@ -79,4 +81,10 @@ norm_counts %>%
   ggplot(aes(x = condition, y = count)) +                     # parent ggplot function defines x and y axes
     geom_boxplot(outlier.shape = NA) +                        # boxplot
     geom_dotplot(binaxis = "y", stackdir = "center") +        # dots overlaid on top of box plot
-    theme_bw()                                                # set theme to B & W
+    theme_bw() -> p                                           # set theme to B & W
+p
+
+# interactive graphs with the plotly package
+install.packages("plotly")
+library(plotly)
+ggplotly(p)
